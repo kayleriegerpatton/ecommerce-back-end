@@ -1,5 +1,7 @@
 const { Category, Product } = require("../../models");
 
+// api/categories endpoint
+
 const getAllCategories = (req, res) => {
   // find all categories
   // be sure to include its associated Products

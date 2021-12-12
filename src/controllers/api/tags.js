@@ -1,5 +1,7 @@
 const { Tag, Product, ProductTag } = require("../../models");
 
+// api/tags endpoint
+
 const getAllTags = (req, res) => {
   // find all tags
   // be sure to include its associated Product data
