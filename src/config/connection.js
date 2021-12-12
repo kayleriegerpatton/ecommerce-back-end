@@ -8,7 +8,7 @@ const dbHost = process.env.DB_HOST;
 const dbOptions = {
   host: dbHost,
   dialect: "mysql",
-  port: 4000,
+  port: 3000,
   logging: false,
 };
 

@@ -5,7 +5,7 @@ const sequelize = require("./config/connection");
 
 const routes = require("./routes");
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 
@@ -16,11 +16,15 @@ app.use(routes);
 
 const init = async () => {
   try {
-    await sequelize.sync({ force: false });
+    // DATABASE CONNECTION FAILING
+    // await sequelize.sync({ force: false });
+    await sequelize.authenticate();
+    console.log("Connected!!");
 
-    app.listen(PORT, () =>
-      console.log(`Server running on http://localhost:${PORT}`)
-    );
+    // EXPRESS CONNECTION WORKING
+    // app.listen(PORT, () =>
+    //   console.log(`Server running on http://localhost:${PORT}`)
+    // );
   } catch (error) {
     console.log(`[ERROR]: Connection to DB failed - ${error.message}`);
   }
