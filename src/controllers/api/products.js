@@ -1,4 +1,5 @@
 const { Product, Category, Tag, ProductTag } = require("../../models");
+const logError = require("../../utils/logger");
 
 // api/products endpoint
 
@@ -18,12 +19,29 @@ const getAllProducts = async (req, res) => {
   }
 };
 
-const getProductById = (req, res) => {
+const getProductById = async (req, res) => {
   try {
     // find a single product by its `id`
-    // be sure to include its associated Category and Tag data
-  } catch (error) {}
-  res.json("getProductById");
+    const product = await Product.findByPk(req.params.id, {
+      // include associated Category and Tag data
+      include: [
+        {
+          model: Category,
+        },
+        { model: Tag, through: ProductTag },
+      ],
+    });
+    if (product) {
+      return res.json({ success: true, product });
+    }
+    return res.status(404).json({
+      success: false,
+      error: `Product with id ${req.params.id} does not exist.`,
+    });
+  } catch (error) {
+    logError("GET product by id", error.message);
+    res.status(500).json({ success: false, error: "Failed to send response." });
+  }
 };
 
 const createProduct = (req, res) => {

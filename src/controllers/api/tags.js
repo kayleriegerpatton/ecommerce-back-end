@@ -26,7 +26,15 @@ const getTagById = async (req, res) => {
       // include associated Product data
       include: [{ model: Product, through: ProductTag }],
     });
-    return res.json({ success: true, tag });
+    if (tag) {
+      return res.json({ success: true, tag });
+    }
+    return res
+      .status(404)
+      .json({
+        success: false,
+        error: `Tag with id ${req.params.id} does not exist.`,
+      });
   } catch (error) {
     logError("GET tag by id", error.message);
     return res

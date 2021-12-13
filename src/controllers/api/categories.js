@@ -26,7 +26,15 @@ const getCategoryById = async (req, res) => {
       // include associated Products
       include: [{ model: Product }],
     });
-    return res.json({ success: true, category });
+    if (category) {
+      return res.json({ success: true, category });
+    }
+    return res
+      .status(404)
+      .json({
+        success: false,
+        error: `Category with id ${req.params.id} does not exist.`,
+      });
   } catch (error) {
     logError("GET category by id", error.message);
     return res
