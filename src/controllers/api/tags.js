@@ -7,17 +7,16 @@ const getAllTags = async (req, res) => {
   try {
     // find all tags
     const allTags = await Tag.findAll({
+      // include associated Product data
       include: [{ model: Product }],
     });
     return res.json({ success: true, allTags });
-    // include associated Product data
   } catch (error) {
     logError("GET tags", error.message);
     return res
       .status(500)
       .json({ success: false, error: "Failed to send response." });
   }
-  // res.json("getAllTags");
 };
 
 const getTagById = async (req, res) => {
