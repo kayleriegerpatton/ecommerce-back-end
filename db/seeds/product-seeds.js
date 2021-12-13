@@ -86,7 +86,7 @@ const productData = [
     category_id: 3,
   },
   {
-    product_name: "Laga Gaga Chromatic Album",
+    product_name: "Laga Gaga Chromatica Album",
     price: 12.35,
     stock: 50,
     category_id: 3,

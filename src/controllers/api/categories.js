@@ -2,12 +2,20 @@ const { Category, Product } = require("../../models");
 
 // api/categories endpoint
 
-const getAllCategories = (req, res) => {
+const getAllCategories = async (req, res) => {
   try {
     // find all categories
-    // be sure to include its associated Products
-  } catch (error) {}
-  res.json("getAllCategories");
+    const allCategories = await Category.findAll({
+      // include associated Product data
+      include: [{ model: Product }],
+    });
+    return res.json({ success: true, allCategories });
+  } catch (error) {
+    logError("GET categories", error.message);
+    return res
+      .status(500)
+      .json({ success: false, error: "Failed to send response." });
+  }
 };
 
 const getCategoryById = (req, res) => {

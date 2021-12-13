@@ -22,9 +22,17 @@ const getAllTags = async (req, res) => {
 const getTagById = async (req, res) => {
   try {
     // find a single tag by its `id`
-    // be sure to include its associated Product data
-  } catch (error) {}
-  res.json("getTagById");
+    const tag = await Tag.findByPk(req.params.id, {
+      // include associated Product data
+      include: [{ model: Product, through: ProductTag }],
+    });
+    return res.json({ success: true, tag });
+  } catch (error) {
+    logError("GET tag by id", error.message);
+    return res
+      .status(500)
+      .json({ success: false, error: "Failed to send response." });
+  }
 };
 
 const createTag = async (req, res) => {
