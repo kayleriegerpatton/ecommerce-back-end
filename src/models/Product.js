@@ -15,6 +15,28 @@ const attributes = {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  price: {
+    type: DataTypes.DECIMAL,
+    validate: {
+      isDecimal: true,
+    },
+    allowNull: false,
+  },
+  stock: {
+    type: DataTypes.INTEGER,
+    validate: {
+      isNumeric: true,
+    },
+    allowNull: false,
+    defaultValue: 10,
+  },
+  category_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: "category",
+      key: "id",
+    },
+  },
 };
 
 const options = {
