@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 
 const sequelize = require("./config/connection");
+const logger = require("./middlewares/logger");
 
 const routes = require("./routes");
 
@@ -12,6 +13,7 @@ const app = express();
 // middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(logger);
 app.use(routes);
 
 const init = async () => {
