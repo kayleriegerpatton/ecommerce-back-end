@@ -3,14 +3,18 @@ const { Product, Category, Tag, ProductTag } = require("../../models");
 // api/products endpoint
 
 const getAllProducts = (req, res) => {
-  // find all products
-  // be sure to include its associated Category and Tag data
+  try {
+    // find all products
+    // be sure to include its associated Category and Tag data
+  } catch (error) {}
   res.json("getAllProducts");
 };
 
 const getProductById = (req, res) => {
-  // find a single product by its `id`
-  // be sure to include its associated Category and Tag data
+  try {
+    // find a single product by its `id`
+    // be sure to include its associated Category and Tag data
+  } catch (error) {}
   res.json("getProductById");
 };
 
@@ -87,7 +91,9 @@ const updateProductById = (req, res) => {
 };
 
 const deleteProductById = (req, res) => {
-  // delete one product by its `id` value
+  try {
+    // delete one product by its `id` value
+  } catch (error) {}
   res.json("deleteProductById");
 };
 

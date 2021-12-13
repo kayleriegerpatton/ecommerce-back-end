@@ -3,29 +3,40 @@ const { Category, Product } = require("../../models");
 // api/categories endpoint
 
 const getAllCategories = (req, res) => {
-  // find all categories
-  // be sure to include its associated Products
+  try {
+    // find all categories
+    // be sure to include its associated Products
+  } catch (error) {}
   res.json("getAllCategories");
 };
 
 const getCategoryById = (req, res) => {
-  // find one category by its `id` value
-  // be sure to include its associated Products
+  try {
+    // find one category by its `id` value
+    // be sure to include its associated Products
+  } catch (error) {}
+
   res.json("getCategoryById");
 };
 
 const createCategory = (req, res) => {
-  // create a new category
+  try {
+    // create a new category
+  } catch (error) {}
   res.json("createCategory");
 };
 
 const updateCategoryById = (req, res) => {
-  // update a category by its `id` value
+  try {
+    // update a category by its `id` value
+  } catch (error) {}
   res.json("updateCategoryById");
 };
 
 const deleteCategoryById = (req, res) => {
-  // delete a category by its `id` value
+  try {
+    // delete a category by its `id` value
+  } catch (error) {}
   res.json("deleteCategoryById");
 };
 
