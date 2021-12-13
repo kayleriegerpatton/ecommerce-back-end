@@ -15,7 +15,7 @@ Product.belongsTo(Category, {
 
 // Categories have many Products
 Category.hasMany(Product, {
-  foreignKey: "product_id",
+  foreignKey: "category_id",
   // when category is deleted, set its id as null in product table
   onDelete: "SET NULL",
   onUpdate: "CASCADE",

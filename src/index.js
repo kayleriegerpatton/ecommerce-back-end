@@ -1,13 +1,13 @@
+// external imports
 require("dotenv").config();
 const express = require("express");
 
+// internal imports
 const sequelize = require("./config/connection");
 const logger = require("./middlewares/logger");
-
 const routes = require("./routes");
 
 const PORT = process.env.PORT || 3306;
-
 const app = express();
 
 // middlewares
@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(logger);
 app.use(routes);
 
+// initialize server and database connection
 const init = async () => {
   try {
     await sequelize.sync({ force: false });
