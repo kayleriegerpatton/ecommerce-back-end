@@ -1,4 +1,5 @@
 const { Category, Product } = require("../../models");
+const logError = require("../../utils/logger");
 
 // api/categories endpoint
 
@@ -18,13 +19,20 @@ const getAllCategories = async (req, res) => {
   }
 };
 
-const getCategoryById = (req, res) => {
+const getCategoryById = async (req, res) => {
   try {
     // find one category by its `id` value
-    // be sure to include its associated Products
-  } catch (error) {}
-
-  res.json("getCategoryById");
+    const category = await Category.findByPk(req.params.id, {
+      // include associated Products
+      include: [{ model: Product }],
+    });
+    return res.json({ success: true, category });
+  } catch (error) {
+    logError("GET category by id", error.message);
+    return res
+      .status(500)
+      .json({ success: false, error: "Failed to send response." });
+  }
 };
 
 const createCategory = (req, res) => {
