@@ -57,15 +57,24 @@ const updateTagById = async (req, res) => {
 
 const deleteTagById = async (req, res) => {
   try {
-    // delete tag by its `id` value
-    await Tag.destroy({
-      where: {
-        id: req.params.id,
-      },
-    });
+    // check if tag exists
+    const tag = await Tag.findByPk(req.params.id);
+
+    if (tag) {
+      // delete tag by its `id` value
+      await Tag.destroy({
+        where: {
+          id: req.params.id,
+        },
+      });
+      return res.json({
+        success: true,
+        data: `Tag with id ${req.params.id} deleted.`,
+      });
+    }
     return res.json({
-      success: true,
-      data: `Tag with id ${req.params.id} deleted.`,
+      success: false,
+      error: `Tag with id ${req.params.id} does not exist.`,
     });
   } catch (error) {
     logError("DELETE tag", error.message);

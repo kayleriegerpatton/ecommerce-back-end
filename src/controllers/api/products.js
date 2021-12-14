@@ -118,15 +118,24 @@ const updateProductById = (req, res) => {
 
 const deleteProductById = async (req, res) => {
   try {
-    // delete one product by its `id` value
-    await Product.destroy({
-      where: {
-        id: req.params.id,
-      },
-    });
+    // check if product exists
+    const product = await Product.findByPk(req.params.id);
+
+    if (product) {
+      // delete one product by its `id` value
+      await Product.destroy({
+        where: {
+          id: req.params.id,
+        },
+      });
+      return res.json({
+        success: true,
+        data: `Product with id ${req.params.id} deleted.`,
+      });
+    }
     return res.json({
-      success: true,
-      data: `Product with id ${req.params.id} deleted.`,
+      success: false,
+      error: `Product with id ${req.params.id} does not exist.`,
     });
   } catch (error) {
     logError("DELETE product", error.message);

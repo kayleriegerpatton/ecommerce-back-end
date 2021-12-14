@@ -58,15 +58,23 @@ const updateCategoryById = (req, res) => {
 
 const deleteCategoryById = async (req, res) => {
   try {
-    // delete a category by its `id` value
-    await Category.destroy({
-      where: {
-        id: req.params.id,
-      },
-    });
+    // check if category exists
+    const category = await Category.findByPk(req.params.id);
+    if (category) {
+      // delete a category by its `id` value
+      await Category.destroy({
+        where: {
+          id: req.params.id,
+        },
+      });
+      return res.json({
+        success: true,
+        data: `Category with id ${req.params.id} deleted.`,
+      });
+    }
     return res.json({
-      success: true,
-      data: `Category with id ${req.params.id} deleted.`,
+      success: false,
+      error: `Category with id ${req.params.id} does not exist.`,
     });
   } catch (error) {
     logError("DELETE category", error.message);
