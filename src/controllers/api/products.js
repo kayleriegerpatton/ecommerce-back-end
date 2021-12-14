@@ -116,11 +116,24 @@ const updateProductById = (req, res) => {
     });
 };
 
-const deleteProductById = (req, res) => {
+const deleteProductById = async (req, res) => {
   try {
     // delete one product by its `id` value
-  } catch (error) {}
-  res.json("deleteProductById");
+    await Product.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    return res.json({
+      success: true,
+      data: `Product with id ${req.params.id} deleted.`,
+    });
+  } catch (error) {
+    logError("DELETE product", error.message);
+    return res
+      .status(500)
+      .json({ success: false, error: "Failed to send response." });
+  }
 };
 
 module.exports = {

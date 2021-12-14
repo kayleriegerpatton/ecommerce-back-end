@@ -1,3 +1,4 @@
+const { retry } = require("statuses");
 const { Category, Product } = require("../../models");
 const logError = require("../../utils/logger");
 
@@ -29,12 +30,10 @@ const getCategoryById = async (req, res) => {
     if (category) {
       return res.json({ success: true, category });
     }
-    return res
-      .status(404)
-      .json({
-        success: false,
-        error: `Category with id ${req.params.id} does not exist.`,
-      });
+    return res.status(404).json({
+      success: false,
+      error: `Category with id ${req.params.id} does not exist.`,
+    });
   } catch (error) {
     logError("GET category by id", error.message);
     return res
@@ -57,11 +56,24 @@ const updateCategoryById = (req, res) => {
   res.json("updateCategoryById");
 };
 
-const deleteCategoryById = (req, res) => {
+const deleteCategoryById = async (req, res) => {
   try {
     // delete a category by its `id` value
-  } catch (error) {}
-  res.json("deleteCategoryById");
+    await Category.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    return res.json({
+      success: true,
+      data: `Category with id ${req.params.id} deleted.`,
+    });
+  } catch (error) {
+    logError("DELETE category", error.message);
+    return res
+      .status(500)
+      .json({ success: false, error: "Failed to send response." });
+  }
 };
 
 module.exports = {
