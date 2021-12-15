@@ -74,9 +74,33 @@ const createCategory = async (req, res) => {
 
 const updateCategoryById = async (req, res) => {
   try {
+    const { category_name } = req.body;
+
+    // check for category id in db
+    const categoryId = await Category.findByPk(req.params.id);
+
     // update a category by its `id` value
-  } catch (error) {}
-  res.json("updateCategoryById");
+    if (categoryId) {
+      await Category.update(req.body, {
+        where: {
+          id: req.params.id,
+        },
+      });
+
+      return res.json({
+        success: true,
+        data: `Updated category to "${category_name}."`,
+      });
+    }
+    return res
+      .status(400)
+      .json({ success: false, error: `Category with id ${id} doesn't exist.` });
+  } catch (error) {
+    logError("PUT category", error.message);
+    return res
+      .status(500)
+      .json({ success: false, error: "Failed to send response." });
+  }
 };
 
 const deleteCategoryById = async (req, res) => {
