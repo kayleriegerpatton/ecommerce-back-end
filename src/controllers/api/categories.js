@@ -75,15 +75,16 @@ const createCategory = async (req, res) => {
 const updateCategoryById = async (req, res) => {
   try {
     const { category_name } = req.body;
+    const { id } = req.params;
 
     // check for category id in db
-    const categoryId = await Category.findByPk(req.params.id);
+    const categoryId = await Category.findByPk(id);
 
     // update a category by its `id` value
     if (categoryId) {
-      await Category.update(req.body, {
+      await Category.update(category_name, {
         where: {
-          id: req.params.id,
+          id,
         },
       });
 

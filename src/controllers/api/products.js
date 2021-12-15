@@ -6,7 +6,7 @@ const logError = require("../../utils/logger");
 const getAllProducts = async (req, res) => {
   try {
     // find all products
-    const allProducts = await Produc.findAll({
+    const allProducts = await Product.findAll({
       // include  associated Category and Tag data
       include: [{ model: Category }, { model: Tag, through: ProductTag }],
     });
@@ -137,8 +137,8 @@ const updateProductById = (req, res) => {
     .then((updatedProductTags) => res.json(updatedProductTags))
     .catch((error) => {
       logError("PUT product by id", error.message);
-      res
-        .status(400)
+      return res
+        .status(500)
         .json({ success: false, error: "Failed to send response." });
     });
 };
