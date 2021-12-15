@@ -6,7 +6,7 @@ const logError = require("../../utils/logger");
 const getAllProducts = async (req, res) => {
   try {
     // find all products
-    const allProducts = await Product.findAll({
+    const allProducts = await Produc.findAll({
       // include  associated Category and Tag data
       include: [{ model: Category }, { model: Tag, through: ProductTag }],
     });
