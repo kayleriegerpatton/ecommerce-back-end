@@ -43,9 +43,25 @@ const getTagById = async (req, res) => {
 
 const createTag = async (req, res) => {
   try {
-    // create a new tag
-  } catch (error) {}
-  res.json("createTag");
+    const { tag_name } = req.body;
+
+    // check request body contents
+    if (tag_name) {
+      await Tag.create({ tag_name });
+      return res.json({ success: true, data: `Created new ${tag_name} tag.` });
+    }
+    // missing/bad data entry in request
+    return res.status(400).json({
+      success: false,
+      error:
+        "Please read the documentation and provide the appropriate data entry.",
+    });
+
+    // server error
+  } catch (error) {
+    logError("POST tag", error.message);
+    res.status(500).json({ success: false, error: "Failed to send response." });
+  }
 };
 
 const updateTagById = async (req, res) => {

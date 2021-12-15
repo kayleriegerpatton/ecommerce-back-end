@@ -44,9 +44,9 @@ const getCategoryById = async (req, res) => {
 
 const createCategory = async (req, res) => {
   try {
-    // check request body contents
     const { category_name } = req.body;
 
+    // check request body contents
     if (category_name) {
       await Category.create({ category_name });
 
