@@ -53,7 +53,6 @@ const createProduct = async (req, res) => {
       tagIds: [1, 2, 3, 4]
     }
   */
-
   try {
     const { product_name, price, stock, tagIds } = req.body;
 
@@ -82,7 +81,7 @@ const createProduct = async (req, res) => {
       return res.json({ success: true, data: "Created new product." });
     }
     // req.body missing entries (bad request)
-    return res.status(404).json({
+    return res.status(400).json({
       success: false,
       error:
         "Please read the documentation and provide the appropriate data entries.",

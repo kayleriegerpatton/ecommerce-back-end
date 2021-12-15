@@ -30,7 +30,7 @@ const getCategoryById = async (req, res) => {
     if (category) {
       return res.json({ success: true, category });
     }
-    return res.status(404).json({
+    return res.status(400).json({
       success: false,
       error: `Category with id ${req.params.id} does not exist.`,
     });
@@ -42,14 +42,35 @@ const getCategoryById = async (req, res) => {
   }
 };
 
-const createCategory = (req, res) => {
+const createCategory = async (req, res) => {
   try {
-    // create a new category
-  } catch (error) {}
-  res.json("createCategory");
+    // check request body contents
+    const { category_name } = req.body;
+
+    if (category_name) {
+      await Category.create({ category_name });
+
+      return res.json({
+        success: true,
+        data: `Created new ${category_name} category.`,
+      });
+    }
+
+    // missing/bad data entry in request
+    return res.status(400).json({
+      success: false,
+      error:
+        "Please read the documentation and provide the appropriate data entry.",
+    });
+
+    // server error
+  } catch (error) {
+    logError("POST category", error.message);
+    res.status(500).json({ success: false, error: "Failed to send response." });
+  }
 };
 
-const updateCategoryById = (req, res) => {
+const updateCategoryById = async (req, res) => {
   try {
     // update a category by its `id` value
   } catch (error) {}
