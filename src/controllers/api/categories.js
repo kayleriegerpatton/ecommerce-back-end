@@ -1,17 +1,19 @@
-const { retry } = require("statuses");
+// internal imports
 const { Category, Product } = require("../../models");
 const logError = require("../../utils/logger");
 
-// api/categories endpoint
+// API/CATEGORIES endpoint
 
 const getAllCategories = async (req, res) => {
   try {
     // find all categories
-    const allCategories = await Category.findAll({
+    const allCategories = await Categor.findAll({
       // include associated Product data
       include: [{ model: Product }],
     });
     return res.json({ success: true, allCategories });
+
+    // server error
   } catch (error) {
     logError("GET categories", error.message);
     return res

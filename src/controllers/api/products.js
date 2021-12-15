@@ -1,7 +1,7 @@
 const { Product, Category, Tag, ProductTag } = require("../../models");
 const logError = require("../../utils/logger");
 
-// api/products endpoint
+// API/PRODUCTS endpoint
 
 const getAllProducts = async (req, res) => {
   try {
@@ -11,6 +11,8 @@ const getAllProducts = async (req, res) => {
       include: [{ model: Category }, { model: Tag, through: ProductTag }],
     });
     return res.json({ success: true, allProducts });
+
+    // server error
   } catch (error) {
     logError("GET products", error.message);
     return res
@@ -34,7 +36,7 @@ const getProductById = async (req, res) => {
     if (product) {
       return res.json({ success: true, product });
     }
-    return res.status(404).json({
+    return res.status(400).json({
       success: false,
       error: `Product with id ${req.params.id} does not exist.`,
     });

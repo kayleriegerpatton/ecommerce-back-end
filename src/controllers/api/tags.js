@@ -1,7 +1,7 @@
 const { Tag, Product, ProductTag } = require("../../models");
 const logError = require("../../utils/logger");
 
-// api/tags endpoint
+// API/TAGS endpoint
 
 const getAllTags = async (req, res) => {
   try {
@@ -11,6 +11,8 @@ const getAllTags = async (req, res) => {
       include: [{ model: Product }],
     });
     return res.json({ success: true, allTags });
+
+    // server error
   } catch (error) {
     logError("GET tags", error.message);
     return res
@@ -29,7 +31,7 @@ const getTagById = async (req, res) => {
     if (tag) {
       return res.json({ success: true, tag });
     }
-    return res.status(404).json({
+    return res.status(400).json({
       success: false,
       error: `Tag with id ${req.params.id} does not exist.`,
     });
