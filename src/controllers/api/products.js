@@ -56,14 +56,15 @@ const createProduct = async (req, res) => {
     }
   */
   try {
-    const { product_name, price, stock, tagIds } = req.body;
+    const { product_name, price, stock, category_id, tagIds } = req.body;
 
     // check request body contents
-    if (product_name && price && stock && tagIds) {
+    if (product_name && price && stock && category_id && tagIds) {
       const product = await Product.create({
         product_name,
         price,
         stock,
+        category_id,
         tagIds,
       });
 
