@@ -75,21 +75,21 @@ const updateTagById = async (req, res) => {
     // check for tag in db
     const tagId = await Tag.findByPk(id);
 
-    if (!tagId) {
-      return res.status(400).json({
-        success: false,
-        error: `Tag with id ${id} doesn't exist.`,
+    if (tagId) {
+      await Tag.update(tag_name, {
+        where: {
+          id,
+        },
+      });
+
+      return res.json({
+        success: true,
+        data: `Updated tag to ${tag_name}.`,
       });
     }
-    await Tag.update(tag_name, {
-      where: {
-        id,
-      },
-    });
-
-    return res.json({
-      success: true,
-      data: `Updated tag to ${tag_name}.`,
+    return res.status(400).json({
+      success: false,
+      error: `Tag with id ${id} doesn't exist.`,
     });
   } catch (error) {
     logError("PUT tag", error.message);
