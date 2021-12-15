@@ -44,7 +44,7 @@ const getProductById = async (req, res) => {
   }
 };
 
-const createProduct = (req, res) => {
+const createProduct = async (req, res) => {
   /* req.body should look like this...
     {
       product_name: "Basketball",
@@ -53,26 +53,46 @@ const createProduct = (req, res) => {
       tagIds: [1, 2, 3, 4]
     }
   */
-  Product.create(req.body)
-    .then((product) => {
-      // if there's product tags, we need to create pairings to bulk create in the ProductTag model
-      if (req.body.tagIds.length) {
-        const productTagIdArr = req.body.tagIds.map((tag_id) => {
+
+  try {
+    const { product_name, price, stock, tagIds } = req.body;
+
+    // check request body contents
+    if (product_name && price && stock && tagIds) {
+      const product = await Product.create({
+        product_name,
+        price,
+        stock,
+        tagIds,
+      });
+
+      // map over ids array to create id array of objects
+      if (tagIds.length) {
+        const productTagIdArray = tagIds.map((tag_id) => {
           return {
             product_id: product.id,
             tag_id,
           };
         });
-        return ProductTag.bulkCreate(productTagIdArr);
+
+        // bulk create producttag records from id objects
+        await ProductTag.bulkCreate(productTagIdArray);
       }
-      // if no product tags, just respond
-      res.status(200).json(product);
-    })
-    .then((productTagIds) => res.status(200).json(productTagIds))
-    .catch((err) => {
-      console.log(err);
-      res.status(400).json(err);
+
+      return res.json({ success: true, data: "Created new product." });
+    }
+    // req.body missing entries (bad request)
+    return res.status(404).json({
+      success: false,
+      error:
+        "Please read the documentation and provide the appropriate data entries.",
     });
+
+    // server error
+  } catch (error) {
+    logError("POST product", error.message);
+    res.status(500).json({ success: false, error: "Failed to send response." });
+  }
 };
 
 const updateProductById = (req, res) => {
@@ -90,6 +110,10 @@ const updateProductById = (req, res) => {
       // get list of current tag_ids
       const productTagIds = productTags.map(({ tag_id }) => tag_id);
       // create filtered list of new tag_ids
+
+      // returning an empty array
+      console.log(productTagIds);
+
       const newProductTags = req.body.tagIds
         .filter((tag_id) => !productTagIds.includes(tag_id))
         .map((tag_id) => {
@@ -110,9 +134,11 @@ const updateProductById = (req, res) => {
       ]);
     })
     .then((updatedProductTags) => res.json(updatedProductTags))
-    .catch((err) => {
-      // console.log(err);
-      res.status(400).json(err);
+    .catch((error) => {
+      logError("PUT product by id", error.message);
+      res
+        .status(400)
+        .json({ success: false, error: "Failed to send response." });
     });
 };
 
