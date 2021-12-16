@@ -3,6 +3,7 @@
 ## Table of Contents
 
 - [Description](#description)
+  - [Endpoints](#endpoints)
   - [Built With](#built-with)
 - [Getting Started](#getting-started)
   - [Installation](#installation)
@@ -15,19 +16,49 @@
 
 This Node.js application uses an Express.js server and a MySQL database through the sequelize package.
 
-The database contains 4 tables: categories, products, tags, and product_tags. The api queries the 3 main tables, each with 5 endpoints:
+The database contains 4 tables: categories, products, tags, and product_tags. The api queries the 3 main tables, each with 5 endpoints.
 
-- GET all records
-  - ex. GET /api/categories response:
+### Endpoints
 
-```
-
-```
-
-- GET a record by id
 - POST a new record
 - PUT a record update
 - DELETE a record
+- GET all records
+- GET a record by id
+  - ex. GET /api/categories/2 response:
+
+```json
+{
+  "success": true,
+  "category": {
+    "id": 2,
+    "category_name": "Shorts",
+    "products": [
+      {
+        "id": 5,
+        "product_name": "Cargo Shorts",
+        "price": "30",
+        "stock": 22,
+        "category_id": 2
+      },
+      {
+        "id": 12,
+        "product_name": "Biker Shorts",
+        "price": "30",
+        "stock": 3,
+        "category_id": 2
+      },
+      {
+        "id": 13,
+        "product_name": "Basketball Shorts",
+        "price": "46",
+        "stock": 17,
+        "category_id": 2
+      }
+    ]
+  }
+}
+```
 
 ### Built With
 
@@ -74,8 +105,8 @@ npm run start
 
 ## Demo Video
 
-Click to view the [app demo]().
+Click to view the [app demo video]().
 
 ## Questions
 
-To contribute to or ask a question about this project, please [email](mailto:kayle.patton22@gmail.com) me.
+To contribute to or ask a question about this project, please [email me](mailto:kayle.patton22@gmail.com).
