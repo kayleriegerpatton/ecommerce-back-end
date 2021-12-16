@@ -7,7 +7,7 @@ const logError = require("../../utils/logger");
 const getAllCategories = async (req, res) => {
   try {
     // find all categories
-    const allCategories = await Categor.findAll({
+    const allCategories = await Category.findAll({
       // include associated Product data
       include: [{ model: Product }],
     });
