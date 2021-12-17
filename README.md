@@ -65,19 +65,18 @@ The database contains 4 tables: categories, products, tags, and product_tags. Th
 - Node.js
 - Express.js
 - MySQL
-- sequelize, moment.js, & colors packages
+- sequelize, moment.js & colors packages
 
 ## Getting Started
 
 ### Installation
 
-Run the following script to install the application:
+Install the application:
 
 ```
 git clone https://github.com/kayleriegerpatton/ecommerce-back-end.git
 cd ecommerce-back-end
 npm install
-
 ```
 
 ### Database Setup
@@ -88,7 +87,6 @@ Create the ecommerce_db database using the schema.sql file in the terminal or My
 DROP DATABASE IF EXISTS ecommerce_db;
 
 CREATE DATABASE ecommerce_db;
-
 ```
 
 Seed the data:
