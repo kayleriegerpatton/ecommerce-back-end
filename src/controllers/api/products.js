@@ -123,6 +123,7 @@ const updateProductById = (req, res) => {
     },
   })
     .then((product) => {
+      console.log(product);
       // find all associated tags from ProductTag
       return ProductTag.findAll({ where: { product_id: req.params.id } });
     })
@@ -153,7 +154,7 @@ const updateProductById = (req, res) => {
     .then(() => {
       return res.json({
         success: true,
-        data: `Updated category to ${product_name}.`,
+        data: `Updated product to ${product_name}.`,
       });
     })
     .catch((error) => {

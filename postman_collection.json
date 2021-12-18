@@ -121,11 +121,11 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3000/api/products/15",
+              "raw": "http://localhost:3000/api/products/14",
               "protocol": "http",
               "host": ["localhost"],
               "port": "3000",
-              "path": ["api", "products", "15"]
+              "path": ["api", "products", "14"]
             }
           },
           "response": []
