@@ -123,7 +123,6 @@ const updateProductById = (req, res) => {
     },
   })
     .then((product) => {
-      console.log(product);
       // find all associated tags from ProductTag
       return ProductTag.findAll({ where: { product_id: req.params.id } });
     })
