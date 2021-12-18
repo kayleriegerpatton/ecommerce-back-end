@@ -21,12 +21,67 @@ The database contains 4 tables: categories, products, tags, and product_tags. Th
 
 ### Endpoints
 
-- POST a new record
-- PUT a record update
-- DELETE a record
-- GET all records
-- GET a record by id
-  - ex. GET /api/categories/2 response:
+#### `POST /api/{categories|products|tags}`
+
+- creates a new record by type
+
+Post body example (products):
+
+```json
+{
+  "product_name": "The Beatles Abbey Road, Special Edition CD",
+  "price": 25.99,
+  "stock": 30,
+  "category_id": 3,
+  "tagIds": [1, 3]
+}
+```
+
+Response:
+
+```json
+{
+  "success": true,
+  "data": "Created new product."
+}
+```
+
+#### `PUT /api/{categories|products|tags}/:id`
+
+- updates a record by id
+
+Post body example (products):
+
+```json
+{
+  "product_name": "The Beatles Abbey Road CD",
+  "price": 13.99,
+  "stock": 3,
+  "tagIds": [1, 3, 4]
+}
+```
+
+Response:
+
+```json
+{
+  "success": true,
+  "data": "Created new product."
+}
+```
+
+#### `DELETE api/{categories|products|tags}/:id`
+
+- deletes a record by id
+
+#### `GET api/{categories|products|tags}`
+
+- returns a list of all records by type
+
+#### `GET /api/{categories|products|tags}/:id`
+
+- each returns a record by id
+- ex. `GET /api/categories/2` response:
 
 ```json
 {
@@ -75,9 +130,9 @@ The database contains 4 tables: categories, products, tags, and product_tags. Th
 Install the application:
 
 ```
-git clone https://github.com/kayleriegerpatton/ecommerce-back-end.git
-cd ecommerce-back-end
-npm install
+$ git clone https://github.com/kayleriegerpatton/ecommerce-back-end.git
+$ cd ecommerce-back-end
+$ npm install
 ```
 
 ### Environment Variables
