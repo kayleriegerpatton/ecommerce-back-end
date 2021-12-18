@@ -105,7 +105,7 @@ const updateCategoryById = async (req, res) => {
       });
     }
     return res
-      .status(400)
+      .status(404)
       .json({ success: false, error: `Category with id ${id} doesn't exist.` });
   } catch (error) {
     logError("PUT category", error.message);

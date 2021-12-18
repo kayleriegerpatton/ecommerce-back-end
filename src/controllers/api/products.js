@@ -106,6 +106,16 @@ const createProduct = async (req, res) => {
 };
 
 const updateProductById = (req, res) => {
+  const { product_name, price, stock, tagIds } = req.body;
+
+  if (!product_name || !price || !stock || !tagIds) {
+    return res.status(404).json({
+      success: false,
+      error:
+        "Please read the documentation and provide the appropriate data entry.",
+    });
+  }
+
   // update product data
   Product.update(req.body, {
     where: {
@@ -119,11 +129,8 @@ const updateProductById = (req, res) => {
     .then((productTags) => {
       // get list of current tag_ids
       const productTagIds = productTags.map(({ tag_id }) => tag_id);
+
       // create filtered list of new tag_ids
-
-      // returning an empty array
-      console.log(productTagIds);
-
       const newProductTags = req.body.tagIds
         .filter((tag_id) => !productTagIds.includes(tag_id))
         .map((tag_id) => {
@@ -143,7 +150,12 @@ const updateProductById = (req, res) => {
         ProductTag.bulkCreate(newProductTags),
       ]);
     })
-    .then((updatedProductTags) => res.json(updatedProductTags))
+    .then(() => {
+      return res.json({
+        success: true,
+        data: `Updated category to ${product_name}.`,
+      });
+    })
     .catch((error) => {
       logError("PUT product by id", error.message);
       return res

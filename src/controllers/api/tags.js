@@ -84,18 +84,21 @@ const updateTagById = async (req, res) => {
     const tagId = await Tag.findByPk(id);
 
     if (tagId) {
-      await Tag.update(tag_name, {
-        where: {
-          id,
-        },
-      });
+      await Tag.update(
+        { tag_name },
+        {
+          where: {
+            id,
+          },
+        }
+      );
 
       return res.json({
         success: true,
         data: `Updated tag to ${tag_name}.`,
       });
     }
-    return res.status(400).json({
+    return res.status(404).json({
       success: false,
       error: `Tag with id ${id} doesn't exist.`,
     });

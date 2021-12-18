@@ -15,19 +15,19 @@ colors.setTheme({
 
 const seedAll = async () => {
   await sequelize.sync({ force: true });
-  console.log("\n----- DATABASE SYNCED -----\n".success);
+  console.log("\n DATABASE SYNCED \n".success);
 
   await seedCategories();
-  console.log("\n----- CATEGORIES SEEDED -----\n".success);
+  console.log("\n CATEGORIES SEEDED \n".success);
 
   await seedProducts();
-  console.log("\n----- PRODUCTS SEEDED -----\n".success);
+  console.log("\n PRODUCTS SEEDED \n".success);
 
   await seedTags();
-  console.log("\n----- TAGS SEEDED -----\n".success);
+  console.log("\n TAGS SEEDED \n".success);
 
   await seedProductTags();
-  console.log("\n----- PRODUCT TAGS SEEDED -----\n".success);
+  console.log("\n PRODUCT TAGS SEEDED \n".success);
 
   process.exit(0);
 };
