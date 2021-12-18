@@ -7,6 +7,7 @@
   - [Built With](#built-with)
 - [Getting Started](#getting-started)
   - [Installation](#installation)
+  - [Environment Variables](#environment-variables)
   - [Database Setup](#database-setup)
   - [Launch the App](#launch-the-app)
 - [Demo Video](#demo-video)
@@ -79,9 +80,9 @@ cd ecommerce-back-end
 npm install
 ```
 
-### env
+### Environment Variables
 
-Add an `.env` file in the root folder and follow the structure below:
+In the root folder, add an `.env` file following the structure below:
 
 ```
 DB_NAME=''

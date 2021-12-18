@@ -44,7 +44,7 @@ const getProductById = async (req, res) => {
     if (product) {
       return res.json({ success: true, product });
     }
-    return res.status(400).json({
+    return res.status(404).json({
       success: false,
       error: `Product with id ${req.params.id} does not exist.`,
     });
@@ -109,7 +109,7 @@ const updateProductById = (req, res) => {
   const { product_name, price, stock, tagIds } = req.body;
 
   if (!product_name || !price || !stock || !tagIds) {
-    return res.status(404).json({
+    return res.status(400).json({
       success: false,
       error:
         "Please read the documentation and provide the appropriate data entry.",
