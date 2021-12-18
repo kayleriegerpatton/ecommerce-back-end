@@ -4,6 +4,14 @@ const seedTags = require("./tag-seeds");
 const seedProductTags = require("./product-tag-seeds");
 
 const sequelize = require("../../src/config/connection");
+const colors = require("colors");
+
+colors.setTheme({
+  success: ["bgGreen", "black"],
+  warning: ["bgBrightYellow", "black", "bold"],
+  fail: ["bgRed", "white", "bold"],
+  message: ["bgWhite", "black"],
+});
 
 const seedAll = async () => {
   await sequelize.sync({ force: true });
@@ -19,7 +27,7 @@ const seedAll = async () => {
   console.log("\n----- TAGS SEEDED -----\n".success);
 
   await seedProductTags();
-  console.log("\n----- PRODUCT TAGS SEEDED -----\n").success;
+  console.log("\n----- PRODUCT TAGS SEEDED -----\n".success);
 
   process.exit(0);
 };
