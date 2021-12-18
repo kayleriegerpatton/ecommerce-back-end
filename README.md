@@ -79,6 +79,17 @@ cd ecommerce-back-end
 npm install
 ```
 
+### env
+
+Add an `.env` file in the root folder and follow the structure below:
+
+```
+DB_NAME=''
+DB_USER=''
+DB_PASSWORD=''
+DB_HOST=''
+```
+
 ### Database Setup
 
 Create the ecommerce_db database using the schema.sql file in the terminal or MySQL Workbench:

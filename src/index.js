@@ -15,7 +15,7 @@ const sequelize = require("./config/connection");
 const logger = require("./middlewares/logger");
 const routes = require("./routes");
 
-const PORT = process.env.PORT || 3306;
+const PORT = process.env.PORT || 3000;
 const app = express();
 
 // middlewares
@@ -31,7 +31,7 @@ const init = async () => {
 
     // EXPRESS CONNECTION WORKING
     app.listen(PORT, () =>
-      console.log(`Server running on http://localhost:${PORT}.`.success)
+      console.log(`Server running on http://localhost:${PORT}`.success)
     );
   } catch (error) {
     console.log(`[ERROR]: Connection to DB failed - ${error.message}`.fail);

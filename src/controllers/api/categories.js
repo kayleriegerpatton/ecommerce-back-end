@@ -37,13 +37,13 @@ const getCategoryById = async (req, res) => {
       // include associated Products
       include: [{ model: Product }],
     });
-    if (category) {
-      return res.json({ success: true, category });
+    if (!category) {
+      return res.status(404).json({
+        success: false,
+        error: `Category with id ${req.params.id} does not exist.`,
+      });
     }
-    return res.status(400).json({
-      success: false,
-      error: `Category with id ${req.params.id} does not exist.`,
-    });
+    return res.json({ success: true, category });
   } catch (error) {
     logError("GET category by id", error.message);
     return res
@@ -90,11 +90,14 @@ const updateCategoryById = async (req, res) => {
 
     // update a category by its `id` value
     if (categoryId) {
-      await Category.update(category_name, {
-        where: {
-          id,
-        },
-      });
+      await Category.update(
+        { category_name },
+        {
+          where: {
+            id,
+          },
+        }
+      );
 
       return res.json({
         success: true,
@@ -114,23 +117,27 @@ const updateCategoryById = async (req, res) => {
 
 const deleteCategoryById = async (req, res) => {
   try {
+    const { id } = req.params;
     // check if category exists
-    const category = await Category.findByPk(req.params.id);
-    if (category) {
-      // delete a category by its `id` value
-      await Category.destroy({
-        where: {
-          id: req.params.id,
-        },
-      });
-      return res.json({
-        success: true,
-        data: `Category with id ${req.params.id} deleted.`,
+    const category = await Category.findByPk(id);
+
+    if (!category) {
+      return res.status(404).json({
+        success: false,
+        error: `Category with id ${req.params.id} does not exist.`,
       });
     }
+
+    // delete a category by its `id` value
+    await Category.destroy({
+      where: {
+        id,
+      },
+    });
+
     return res.json({
-      success: false,
-      error: `Category with id ${req.params.id} does not exist.`,
+      success: true,
+      data: `Category with id ${id} deleted.`,
     });
   } catch (error) {
     logError("DELETE category", error.message);
