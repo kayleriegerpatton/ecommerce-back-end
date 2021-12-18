@@ -1,6 +1,14 @@
 // internal imports
 const { Category, Product } = require("../../models");
 const logError = require("../../utils/logger");
+const colors = require("colors");
+
+colors.setTheme({
+  success: ["bgGreen", "black"],
+  warning: ["bgBrightYellow", "black", "bold"],
+  fail: ["bgRed", "white", "bold"],
+  message: ["bgWhite", "black"],
+});
 
 // API/CATEGORIES endpoint
 

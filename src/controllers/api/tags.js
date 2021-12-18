@@ -1,5 +1,13 @@
 const { Tag, Product, ProductTag } = require("../../models");
 const logError = require("../../utils/logger");
+const colors = require("colors");
+
+colors.setTheme({
+  success: ["bgGreen", "black"],
+  warning: ["bgBrightYellow", "black", "bold"],
+  fail: ["bgRed", "white", "bold"],
+  message: ["bgWhite", "black"],
+});
 
 // API/TAGS endpoint
 
