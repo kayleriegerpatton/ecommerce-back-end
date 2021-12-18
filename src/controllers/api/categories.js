@@ -98,7 +98,7 @@ const updateCategoryById = async (req, res) => {
 
       return res.json({
         success: true,
-        data: `Updated category to "${category_name}."`,
+        data: `Updated category to ${category_name}.`,
       });
     }
     return res
