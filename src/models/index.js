@@ -27,8 +27,6 @@ Product.belongsToMany(Tag, {
     model: ProductTag,
     unique: false,
   },
-  // onDelete: "",
-  // onUpdate: "",
 });
 
 // Tags belongToMany Products (through ProductTag)
@@ -37,8 +35,6 @@ Tag.belongsToMany(Product, {
     model: ProductTag,
     unique: false,
   },
-  // onDelete: "",
-  // onUpdate: "",
 });
 
 module.exports = {
