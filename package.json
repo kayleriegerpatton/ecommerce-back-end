@@ -1,0 +1,33 @@
+{
+  "name": "ecommerce-back-end",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "seed": "node db/seeds/index.js",
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kayleriegerpatton/ecommerce-back-end.git"
+  },
+  "keywords": [],
+  "author": "Kayle Rieger Patton",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kayleriegerpatton/ecommerce-back-end/issues"
+  },
+  "homepage": "https://github.com/kayleriegerpatton/ecommerce-back-end#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "moment": "^2.29.1",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.12.0-beta.2"
+  }
+}
